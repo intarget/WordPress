@@ -5,16 +5,13 @@
 
 function intarget_admin_page()
 {
-
-
     $options = get_option('intarget_option_name');
-
     ?>
     <script type="text/javascript">
         <?php include('main.js'); ?>
     </script>
     <style type="text/css">
-        <?php include('uptolike_style.css')?>
+        <?php include('intarget_style.css')?>
     </style>
 
     <div class="wrap">

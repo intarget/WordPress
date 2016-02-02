@@ -215,7 +215,8 @@ function regbyApi($regDomain, $email, $key, $url)
         'url' => $url,
         'cms' => 'wordpress'));
 
-    $options = array(CURLOPT_HTTPHEADER => array('Content-Type:application/json', 'Accept: application/json'),
+    $options = array(
+        CURLOPT_HTTPHEADER => array('Content-Type:application/json', 'Accept: application/json'),
         CURLOPT_URL => $domain . "/api/registration.json",
         CURLOPT_POST => 1,
         CURLOPT_POSTFIELDS => $jsondata,
@@ -356,7 +357,6 @@ if (is_admin()) {
                     update_option('intarget_option_name', $intarget_options);
                     header("Location: " . get_site_url() . $_REQUEST['_wp_http_referer']);
                     die();
-
                 }
             }
 

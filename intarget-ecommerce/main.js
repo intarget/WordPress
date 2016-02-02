@@ -13,21 +13,21 @@ jQuery(document).ready(function () {
 
     jQuery('input[name=submit_btn]').attr('value', 'Авторизация');
 
-    jQuery('[name=submit_btn]').attr('disabled', 'disabled');
-    jQuery('#intarget_api_key, #intarget_email').keyup(function () {
-
-        var empty = false;
-        jQuery('#intarget_api_key, #intarget_email').each(function () {
-            if (jQuery(this).val() == '') {
-                empty = true;
-            }
-        });
-        if (empty) {
-            jQuery('[name=submit_btn]').attr('disabled', 'disabled');
-        } else {
-            jQuery('[name=submit_btn]').removeAttr('disabled');
-        }
-    });
+    //jQuery('[name=submit_btn]').attr('disabled', 'disabled');
+    //jQuery('#intarget_api_key, #intarget_email').keyup(function () {
+    //
+    //    var empty = false;
+    //    jQuery('#intarget_api_key, #intarget_email').each(function () {
+    //        if (jQuery(this).val() == '') {
+    //            empty = true;
+    //        }
+    //    });
+    //    if (empty) {
+    //        jQuery('[name=submit_btn]').attr('disabled', 'disabled');
+    //    } else {
+    //        jQuery('[name=submit_btn]').removeAttr('disabled');
+    //    }
+    //});
 
     var app_key_selector = '#intarget_api_key';
     var images_path = '/wp-content/plugins/intarget-ecommerce/';

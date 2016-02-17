@@ -19,9 +19,9 @@ jQuery(document).ready(function(){
         (function(w, c) {
             w[c] = w[c] || [];
             w[c].push(function(inTarget) {
-
                 inTarget.event('cat-view')
             });
+            console.log('cat-view');
         })(window, 'inTargetCallbacks');
     }
 });
@@ -32,22 +32,23 @@ jQuery(document).ready(function(){
             w[c].push(function(inTarget) {
                 inTarget.event('item-view')
             });
+            console.log('item-view');
         })(window, 'inTargetCallbacks');
     }
 });
 jQuery(document).ready(function(){
     jQuery("button.single_add_to_cart_button").each(function() {
-        var my_funct = " inTarget.event('add-to-cart');";
+        var my_funct = " inTarget.event('add-to-cart');console.log('add-to-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
     });
     jQuery("a.add_to_cart_button").each(function() {
-        var my_funct = " inTarget.event('add-to-cart');";
+        var my_funct = " inTarget.event('add-to-cart');console.log('add-to-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
     })
 });
 jQuery(document).ready(function(){
     jQuery("a.remove[data-product_id]").each(function() {
-        var my_funct = " inTarget.event('del-from-cart');";
+        var my_funct = " inTarget.event('del-from-cart');console.log('del-from-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
     })
 });
@@ -58,6 +59,7 @@ jQuery(document).ready(function(){
             w[c].push(function(inTarget) {
                 inTarget.event('user-reg'); inTarget.event('success-order');
             });
+            console.log('success-order');
         })(window, 'inTargetCallbacks');
     }
 });

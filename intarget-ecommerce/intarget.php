@@ -23,7 +23,7 @@ function intarget_plugin_action_links($actions, $plugin_file)
 {
     if (false === strpos($plugin_file, basename(__FILE__)))
         return $actions;
-    $settings_link = '<a href="options-general.php?page=intarget_settings' . '">Настройки</a>';
+    $settings_link = '<a href="options-general.php?page=intarget_settings">Настройки</a>';
     array_unshift($actions, $settings_link);
     return $actions;
 }
@@ -34,7 +34,7 @@ function intarget_plugin_description_links($meta, $plugin_file)
 {
     if (false === strpos($plugin_file, basename(__FILE__)))
         return $meta;
-    $meta[] = '<a href="options-general.php?page=intarget_settings' . '">Настройки</a>';
+    $meta[] = '<a href="options-general.php?page=intarget_settings">Настройки</a>';
     return $meta;
 }
 

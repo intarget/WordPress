@@ -14,7 +14,6 @@ include 'intarget_options.php';
 
 add_action('wp_enqueue_scripts', 'intarget_scripts_method');
 //register_activation_hook(__FILE__, 'intarget_admin_actions');
-register_deactivation_hook(__FILE__, 'intarget_admin_actions_remove');
 //add_action('widgets_init', 'intarget_register_widgets');
 //add_action('admin_menu', 'intarget_admin_actions');
 add_filter('plugin_action_links', 'intarget_plugin_action_links', 10, 2);

@@ -222,12 +222,12 @@ function regbyApi($regDomain, $email, $key, $url)
 //        }
 //    }
 //}
-
-function intarget_admin_actions_remove()
-{
-    $option_name = 'intarget_option_name';
-    delete_option( $option_name );
-}
+//
+//function intarget_admin_actions_remove()
+//{
+//    $option_name = 'intarget_option_name';
+//    delete_option( $option_name );
+//}
 
 //function intarget_custom_menu_page()
 //{

@@ -2,7 +2,6 @@
 
 class intargetSettingsPage
 {
-
     public $options;
     public $settings_page_name = 'intarget_settings';
 
@@ -13,18 +12,16 @@ class intargetSettingsPage
         $this->options = get_option('intarget_option_name');
     }
 
-
     public function add_plugin_page()
     {
         add_options_page(
             'Settings Admin',
-            'intarget',
+            'inTarget',
             'manage_options',
             $this->settings_page_name,
             array($this, 'create_admin_page')
         );
     }
-
 
     public function create_admin_page()
     {
@@ -34,29 +31,21 @@ class intargetSettingsPage
             $email = $this->options['intarget_email'];
         } else $email = get_option('admin_email');
 
-
         ?>
         <script type="text/javascript">
             <?php include('main.js'); ?>
         </script>
-        <style type="text/css">
-            <?php include('intarget_style.css')?>
-        </style>
         <div id="intarget_site_url" style="display: none"><?php echo get_site_url(); ?></div>
         <div class="wrap">
-
             <div id="wrapper">
-                <form id="settings_form" method="post" action="options.php">
-                    <H1>Плагин inTarget eCommerce</H1>
-
+                <form id="settings_form" method="post" action="<?php echo $_SERVER['REQUEST_URI']?>">
+                    <h1>Плагин inTarget eCommerce</h1>
                     <?php
                     echo_before_text();
                     settings_fields('intarget_option_group');
                     do_settings_sections('intarget_settings');
                     ?>
-
                     <input type="submit" name="submit_btn" value="Cохранить изменения">
-
                 </form>
             </div>
         </div>
@@ -109,10 +98,7 @@ class intargetSettingsPage
             $this->settings_page_name,
             'setting_section_id'
         );
-
-
     }
-
 
     public function sanitize($input)
     {
@@ -124,26 +110,23 @@ class intargetSettingsPage
         if (isset($input['intarget_project_id']))
             $new_input['intarget_project_id'] = $input['intarget_project_id'];
 
-
         if (isset($input['intarget_api_key']))
             $new_input['intarget_api_key'] = $input['intarget_api_key'];
 
         if (isset($input['intarget_reg_error']))
             $new_input['intarget_reg_error'] = $input['intarget_reg_error'];
 
-
         return $new_input;
     }
 
     public function print_section_info()
     {
-
     }
 
     public function intarget_email_callback()
     {
         printf(
-            '<input type="text" id="intarget_email" name="intarget_option_name[intarget_email]" value="%s" title="Введите в данном поле email, указанный при регистрации на сайте http://intarget.ru"/>',
+            '<input type="text" id="intarget_email" name="intarget_option_name[intarget_email]" value="%s" title="Введите в данном поле email, указанный при регистрации на сайте https://intarget.ru"/>',
             isset($this->options['intarget_email']) ? esc_attr($this->options['intarget_email']) : ''
         );
     }
@@ -151,7 +134,7 @@ class intargetSettingsPage
     public function intarget_api_key_callback()
     {
         printf(
-            '<input type="text" id="intarget_api_key" name="intarget_option_name[intarget_api_key]" value="%s" title="Введите в данном поле ключ API, полученный на сайте http://intarget.ru" />',
+            '<input type="text" id="intarget_api_key" name="intarget_option_name[intarget_api_key]" value="%s" title="Введите в данном поле Ключ API, полученный на сайте https://intarget.ru" />',
             isset($this->options['intarget_api_key']) ? esc_attr($this->options['intarget_api_key']) : ''
         );
     }
@@ -171,9 +154,7 @@ class intargetSettingsPage
             isset($this->options['intarget_project_id']) ? esc_attr($this->options['intarget_project_id']) : ''
         );
     }
-
 }
-
 
 function echo_before_text()
 {
@@ -181,7 +162,7 @@ function echo_before_text()
 <div id="before_install" style="display:none;">
 Плагин inTarget успешно установлен!
 
-Для начала работы плагина необходимо ввести ключ API, полученный в личном кабинете на сайте <a href="http://intarget.ru">inTarget.ru</a>
+Для начала работы плагина необходимо ввести Ключ API, полученный в личном кабинете на сайте <a href="https://intarget.ru">inTarget.ru</a>
 </div>
 <div class="wrap" id="after_install" style="display:none;">
 
@@ -200,7 +181,6 @@ function echo_before_text()
 </script>
 ';
 }
-
 
 function regbyApi($regDomain, $email, $key, $url)
 {
@@ -234,56 +214,58 @@ function regbyApi($regDomain, $email, $key, $url)
     return $json_result;
 }
 
-function intarget_admin_actions()
+//function intarget_admin_actions()
+//{
+//    if (current_user_can('manage_options')) {
+//        if (function_exists('add_meta_box')) {
+//            add_menu_page("inTarget", "inTarget", "manage_options", "inTarget", 'intarget_custom_menu_page', plugins_url('intarget-ecommerce/logo-small.png'));
+//        }
+//    }
+//}
+
+function intarget_admin_actions_remove()
 {
-
-    if (current_user_can('manage_options')) {
-        if (function_exists('add_meta_box')) {
-
-            add_menu_page("intarget", "intarget", "manage_options", "intarget", 'intarget_custom_menu_page', plugins_url('intarget-ecommerce/logo-small.png'));
-        }
-    }
+    $option_name = 'intarget_option_name';
+    delete_option( $option_name );
 }
 
-function intarget_custom_menu_page()
-{
-    include_once('intarget-admin.php');
-}
+//function intarget_custom_menu_page()
+//{
+//    include_once('intarget-admin.php');
+//}
 
+//class intargetWidget extends WP_Widget
+//{
+//
+//    function intargetWidget()
+//    {
+//        parent::__construct(false, 'Блок кнопок inTarget');
+//    }
+//
+//    function widget($args, $instance)
+//    {
+//        echo get_intarget_code();
+//    }
+//
+//    function update($new_instance, $old_instance)
+//    {
+//    }
+//
+//    function form($instance)
+//    {
+//    }
+//}
 
-class intargetWidget extends WP_Widget
-{
-
-    function intargetWidget()
-    {
-        parent::__construct(false, 'Блок кнопок intarget');
-    }
-
-    function widget($args, $instance)
-    {
-        echo get_intarget_code();
-    }
-
-    function update($new_instance, $old_instance)
-    {
-    }
-
-    function form($instance)
-    {
-    }
-}
-
-function intarget_register_widgets()
-{
-    register_widget('intargetWidget');
-}
+//function intarget_register_widgets()
+//{
+//    register_widget('intargetWidget');
+//}
 
 function intarget_scripts_method()
 {
-
     $options = get_option('intarget_option_name');
     if ($options['intarget_project_id'] !== '') {
-        wp_register_script('intarget_handle', '/wp-content/plugins/intarget-ecommerce/js/intarget_main.js', array('jquery'));
+        wp_register_script('intarget_handle', '/wp-content/plugins/intarget-ecommerce/js/main.js', array('jquery'));
 
         $datatoBePassed = array(
             'project_id' => $options['intarget_project_id']
@@ -294,17 +276,6 @@ function intarget_scripts_method()
     }
 }
 
-
-add_action('wp_enqueue_scripts', 'intarget_scripts_method');
-
-
-register_activation_hook(__FILE__, 'intarget_admin_actions');
-register_deactivation_hook(__FILE__, 'intarget_admin_actions_remove');
-add_action('widgets_init', 'intarget_register_widgets');
-add_action('admin_menu', 'intarget_admin_actions');
-
-$options = get_option('intarget_option_name');
-
 function intarget_set_default_code()
 {
     $options = get_option('intarget_option_name');
@@ -314,60 +285,6 @@ function intarget_set_default_code()
         $options['intarget_api_key'] = '';
         $options['intarget_project_id'] = '';
         $options['intarget_reg_error'] = '';
-
         update_option('intarget_option_name', $options);
     }
-}
-
-
-if (is_admin()) {
-    $options = get_option('intarget_option_name');
-
-    if (is_bool($options)) {
-        intarget_set_default_code();
-    }
-
-    $reg_domain = 'https://intarget.ru';
-    $url = get_site_url();
-
-    if (($_SERVER['REQUEST_METHOD'] == 'POST') && (isset($_REQUEST['intarget_option_name']))) {
-        $options = $_REQUEST['intarget_option_name'];
-        if (($options['intarget_email'] !== '') &&
-            ($options['intarget_api_key'] !== '') &&
-            ($options['intarget_project_id'] == '')
-        ) {
-            $reg_ans = regbyApi($reg_domain, $options['intarget_email'], $options['intarget_api_key'], $url);
-            if (is_object($reg_ans)) {
-                if (($reg_ans->status == 'OK') && (isset($reg_ans->payload))) {
-                    $intarget_options = get_option('intarget_option_name');
-                    $intarget_options['intarget_project_id'] = $reg_ans->payload->projectId;
-                    $intarget_options['intarget_reg_error'] = '';
-                    $intarget_options['intarget_email'] = $options['intarget_email'];
-                    $intarget_options['intarget_api_key'] = $options['intarget_api_key'];
-                    update_option('intarget_option_name', $intarget_options);
-                    header("Location: " . get_site_url() . $_REQUEST['_wp_http_referer']);
-                    die();
-
-                } elseif ($reg_ans->status = 'error') {
-                    $intarget_options = get_option('intarget_option_name');
-                    $intarget_options['intarget_reg_error'] = $reg_ans->code;
-                    $intarget_options['intarget_project_id'] = '';
-                    $intarget_options['intarget_email'] = $options['intarget_email'];
-                    $intarget_options['intarget_api_key'] = $options['intarget_api_key'];
-                    update_option('intarget_option_name', $intarget_options);
-                    header("Location: " . get_site_url() . $_REQUEST['_wp_http_referer']);
-                    die();
-                }
-            }
-
-
-        }
-    } else {
-        $options = get_option('intarget_option_name');
-
-        $my_settings_page = new intargetSettingsPage();
-
-    }
-
-
 }

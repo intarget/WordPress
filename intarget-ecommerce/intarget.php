@@ -46,7 +46,7 @@ if (is_admin()) {
         intarget_set_default_code();
     }
 
-    $reg_domain = 'https://intarget.ru';//intarget-dev.lembrd.com
+    $reg_domain = 'https://intarget.ru';
     $url = get_site_url();
 
     if (($_SERVER['REQUEST_METHOD'] == 'POST') && (isset($_REQUEST['intarget_option_name']))) {

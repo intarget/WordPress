@@ -52,15 +52,8 @@ jQuery(document).ready(
         jQuery("a.add_to_cart_button").each(function () {
             var my_funct = "intarget_add();";
             jQuery(this).attr('onclick', my_funct);
-        })
+        });
     });
-
-jQuery(document).ready(function () {
-    jQuery("a.remove[data-product_id]").each(function () {
-        var my_funct = "intarget_del();";
-        jQuery(this).attr('onclick', my_funct);
-    })
-});
 
 function intarget_add() {
     (function (w, c) {
@@ -70,6 +63,13 @@ function intarget_add() {
         });
     })(window, 'inTargetCallbacks');
 }
+
+jQuery(document).ready(function () {
+    jQuery("a.remove[data-product_id]").each(function () {
+        var my_funct = "intarget_del();";
+        jQuery(this).attr('onclick', my_funct);
+    });
+});
 
 function intarget_del() {
     (function (w, c) {

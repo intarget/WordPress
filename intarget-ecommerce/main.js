@@ -62,10 +62,10 @@ jQuery(document).ready(function () {
             jQuery('input[name=submit_btn]').css('float', 'left');
         }
         else {
-             jQuery('input[name=submit_btn]').after(text_after + support_text);
+            jQuery('input[name=submit_btn]').after(text_after + support_text);
         }
     } else {
-         jQuery('input[name=submit_btn]').after(text_after + support_text);
+        jQuery('input[name=submit_btn]').after(text_after + support_text);
     }
     jQuery(app_key_selector).parent().css('margin-left', '70px');
     jQuery(email_selector).parent().css('margin-left', '70px');

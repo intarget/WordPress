@@ -1,30 +1,20 @@
 <?php
 
-class intargetSettingsPage
-{
+class intargetSettingsPage {
     public $options;
     public $settings_page_name = 'intarget_settings';
 
-    public function __construct()
-    {
+    public function __construct() {
         add_action('admin_menu', array($this, 'add_plugin_page'));
         add_action('admin_init', array($this, 'page_init'));
         $this->options = get_option('intarget_option_name');
     }
 
-    public function add_plugin_page()
-    {
-        add_options_page(
-            'Settings Admin',
-            'inTarget',
-            'manage_options',
-            $this->settings_page_name,
-            array($this, 'create_admin_page')
-        );
+    public function add_plugin_page() {
+        add_options_page('Settings Admin', 'inTarget', 'manage_options', $this->settings_page_name, array($this, 'create_admin_page'));
     }
 
-    public function create_admin_page()
-    {
+    public function create_admin_page() {
         $this->options = get_option('intarget_option_name');
 
         if ((isset($this->options['intarget_email'])) && ('' !== $this->options['intarget_email'])) {
@@ -38,7 +28,8 @@ class intargetSettingsPage
         <div id="intarget_site_url" style="display: none"><?php echo get_site_url(); ?></div>
         <div class="wrap">
             <div id="wrapper">
-                <form id="settings_form" method="post" action="<?php echo $_SERVER['REQUEST_URI']?>">
+                <form id="settings_form" method="post"
+                      action="<?php echo $_SERVER['REQUEST_URI'] ?>">
                     <h1>Плагин inTarget eCommerce</h1>
                     <?php
                     echo_before_text();
@@ -52,56 +43,22 @@ class intargetSettingsPage
         <?php
     }
 
-    public function page_init()
-    {
-        register_setting(
-            'intarget_option_group',
-            'intarget_option_name',
-            array($this, 'sanitize')
-        );
+    public function page_init() {
+        register_setting('intarget_option_group', 'intarget_option_name', array($this, 'sanitize'));
 
-        add_settings_section(
-            'setting_section_id',
-            '', // Title
-            array($this, 'print_section_info'),
-            $this->settings_page_name
-        );
+        add_settings_section('setting_section_id', '', // Title
+            array($this, 'print_section_info'), $this->settings_page_name);
 
-        add_settings_field(
-            'email',
-            'Email',
-            array($this, 'intarget_email_callback'),
-            $this->settings_page_name,
-            'setting_section_id'
-        );
+        add_settings_field('email', 'Email', array($this, 'intarget_email_callback'), $this->settings_page_name, 'setting_section_id');
 
-        add_settings_field(
-            'intarget_api_key',
-            'Ключ API',
-            array($this, 'intarget_api_key_callback'),
-            $this->settings_page_name,
-            'setting_section_id'
-        );
+        add_settings_field('intarget_api_key', 'Ключ API', array($this, 'intarget_api_key_callback'), $this->settings_page_name, 'setting_section_id');
 
-        add_settings_field(
-            'intarget_reg_error',
-            'intarget_reg_error',
-            array($this, 'intarget_reg_error_callback'),
-            $this->settings_page_name,
-            'setting_section_id'
-        );
+        add_settings_field('intarget_reg_error', 'intarget_reg_error', array($this, 'intarget_reg_error_callback'), $this->settings_page_name, 'setting_section_id');
 
-        add_settings_field(
-            'intarget_project_id',
-            'intarget_project_id',
-            array($this, 'intarget_project_id_callback'),
-            $this->settings_page_name,
-            'setting_section_id'
-        );
+        add_settings_field('intarget_project_id', 'intarget_project_id', array($this, 'intarget_project_id_callback'), $this->settings_page_name, 'setting_section_id');
     }
 
-    public function sanitize($input)
-    {
+    public function sanitize($input) {
         $new_input = array();
 
         if (isset($input['intarget_email']))
@@ -119,45 +76,27 @@ class intargetSettingsPage
         return $new_input;
     }
 
-    public function print_section_info()
-    {
+    public function print_section_info() {
     }
 
-    public function intarget_email_callback()
-    {
-        printf(
-            '<input type="text" id="intarget_email" name="intarget_option_name[intarget_email]" value="%s" title="Введите в данном поле email, указанный при регистрации на сайте https://intarget.ru"/>',
-            isset($this->options['intarget_email']) ? esc_attr($this->options['intarget_email']) : ''
-        );
+    public function intarget_email_callback() {
+        printf('<input type="text" id="intarget_email" name="intarget_option_name[intarget_email]" value="%s" title="Введите в данном поле email, указанный при регистрации на сайте https://intarget.ru"/>', isset($this->options['intarget_email']) ? esc_attr($this->options['intarget_email']) : '');
     }
 
-    public function intarget_api_key_callback()
-    {
-        printf(
-            '<input type="text" id="intarget_api_key" name="intarget_option_name[intarget_api_key]" value="%s" title="Введите в данном поле Ключ API, полученный на сайте https://intarget.ru" />',
-            isset($this->options['intarget_api_key']) ? esc_attr($this->options['intarget_api_key']) : ''
-        );
+    public function intarget_api_key_callback() {
+        printf('<input type="text" id="intarget_api_key" name="intarget_option_name[intarget_api_key]" value="%s" title="Введите в данном поле Ключ API, полученный на сайте https://intarget.ru" />', isset($this->options['intarget_api_key']) ? esc_attr($this->options['intarget_api_key']) : '');
     }
 
-    public function intarget_reg_error_callback()
-    {
-        printf(
-            '<input type="text" id="intarget_reg_error" name="intarget_option_name[intarget_reg_error]" value="%s" />',
-            isset($this->options['intarget_reg_error']) ? esc_attr($this->options['intarget_reg_error']) : ''
-        );
+    public function intarget_reg_error_callback() {
+        printf('<input type="text" id="intarget_reg_error" name="intarget_option_name[intarget_reg_error]" value="%s" />', isset($this->options['intarget_reg_error']) ? esc_attr($this->options['intarget_reg_error']) : '');
     }
 
-    public function intarget_project_id_callback()
-    {
-        printf(
-            '<input type="text" id="intarget_project_id" name="intarget_option_name[intarget_project_id]" value="%s" />',
-            isset($this->options['intarget_project_id']) ? esc_attr($this->options['intarget_project_id']) : ''
-        );
+    public function intarget_project_id_callback() {
+        printf('<input type="text" id="intarget_project_id" name="intarget_option_name[intarget_project_id]" value="%s" />', isset($this->options['intarget_project_id']) ? esc_attr($this->options['intarget_project_id']) : '');
     }
 }
 
-function echo_before_text()
-{
+function echo_before_text() {
     echo '
 <div id="before_install" style="display:none;">
 Плагин inTarget успешно установлен!
@@ -182,26 +121,15 @@ function echo_before_text()
 ';
 }
 
-function regbyApi($regDomain, $email, $key, $url)
-{
+function regbyApi($regDomain, $email, $key, $url) {
     $domain = $regDomain;
     if (($domain == '') OR ($email == '') OR ($key == '') OR ($url == '')) {
         return;
     }
     $ch = curl_init();
-    $jsondata = json_encode(array(
-        'email' => $email,
-        'key' => $key,
-        'url' => $url,
-        'cms' => 'wordpress'));
+    $jsondata = json_encode(array('email' => $email, 'key' => $key, 'url' => $url, 'cms' => 'wordpress'));
 
-    $options = array(
-        CURLOPT_HTTPHEADER => array('Content-Type:application/json', 'Accept: application/json'),
-        CURLOPT_URL => $domain . "/api/registration.json",
-        CURLOPT_POST => 1,
-        CURLOPT_POSTFIELDS => $jsondata,
-        CURLOPT_RETURNTRANSFER => true,
-    );
+    $options = array(CURLOPT_HTTPHEADER => array('Content-Type:application/json', 'Accept: application/json'), CURLOPT_URL => $domain . "/api/registration.json", CURLOPT_POST => 1, CURLOPT_POSTFIELDS => $jsondata, CURLOPT_RETURNTRANSFER => true,);
 
     curl_setopt_array($ch, $options);
     $json_result = json_decode(curl_exec($ch));
@@ -214,70 +142,27 @@ function regbyApi($regDomain, $email, $key, $url)
     return $json_result;
 }
 
-//function intarget_admin_actions()
-//{
-//    if (current_user_can('manage_options')) {
-//        if (function_exists('add_meta_box')) {
-//            add_menu_page("inTarget", "inTarget", "manage_options", "inTarget", 'intarget_custom_menu_page', plugins_url('intarget-ecommerce/logo-small.png'));
-//        }
-//    }
-//}
-//
-//function intarget_admin_actions_remove()
-//{
-//    $option_name = 'intarget_option_name';
-//    delete_option( $option_name );
-//}
-
-//function intarget_custom_menu_page()
-//{
-//    include_once('intarget-admin.php');
-//}
-
-//class intargetWidget extends WP_Widget
-//{
-//
-//    function intargetWidget()
-//    {
-//        parent::__construct(false, 'Блок кнопок inTarget');
-//    }
-//
-//    function widget($args, $instance)
-//    {
-//        echo get_intarget_code();
-//    }
-//
-//    function update($new_instance, $old_instance)
-//    {
-//    }
-//
-//    function form($instance)
-//    {
-//    }
-//}
-
-//function intarget_register_widgets()
-//{
-//    register_widget('intargetWidget');
-//}
-
-function intarget_scripts_method()
-{
+function intarget_scripts_method() {
     $options = get_option('intarget_option_name');
     if ($options['intarget_project_id'] !== '') {
         wp_register_script('intarget_handle', '/wp-content/plugins/intarget-ecommerce/js/main.js', array('jquery'));
 
-        $datatoBePassed = array(
-            'project_id' => $options['intarget_project_id']
-        );
+        $datatoBePassed = array('project_id' => $options['intarget_project_id']);
         wp_localize_script('intarget_handle', 'intarget_vars', $datatoBePassed);
 
         wp_enqueue_script('intarget_handle');
     }
 }
 
-function intarget_set_default_code()
-{
+function intarget_scripts_add() {
+    $options = get_option('intarget_option_name');
+    if ($options['intarget_project_id'] !== '') {
+        wp_register_script('intarget_add', '/wp-content/plugins/intarget-ecommerce/js/add.js', array('jquery'));
+        wp_enqueue_script('intarget_add');
+    }
+}
+
+function intarget_set_default_code() {
     $options = get_option('intarget_option_name');
     if (is_bool($options)) {
         $options = array();

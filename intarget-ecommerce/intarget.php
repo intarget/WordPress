@@ -3,7 +3,7 @@
 Plugin Name: inTarget eCommerce
 Plugin URI: https://intarget.ru/
 Description: inTarget — система аналитики для интернет-магазина, с возможностью отслеживать продажи и анализировать конверсии в реальном времени.
-Version: 1.0.2
+Version: 1.0.3
 Author: inTarget Team
 Author URI: https://intarget.ru/
 */
@@ -18,8 +18,7 @@ add_action('wp_enqueue_scripts', 'intarget_scripts_method');
 //add_action('admin_menu', 'intarget_admin_actions');
 add_filter('plugin_action_links', 'intarget_plugin_action_links', 10, 2);
 
-function intarget_plugin_action_links($actions, $plugin_file)
-{
+function intarget_plugin_action_links($actions, $plugin_file) {
     if (false === strpos($plugin_file, basename(__FILE__)))
         return $actions;
     $settings_link = '<a href="options-general.php?page=intarget_settings">Настройки</a>';
@@ -29,12 +28,18 @@ function intarget_plugin_action_links($actions, $plugin_file)
 
 add_filter('plugin_row_meta', 'intarget_plugin_description_links', 10, 4);
 
-function intarget_plugin_description_links($meta, $plugin_file)
-{
+function intarget_plugin_description_links($meta, $plugin_file) {
     if (false === strpos($plugin_file, basename(__FILE__)))
         return $meta;
     $meta[] = '<a href="options-general.php?page=intarget_settings">Настройки</a>';
     return $meta;
+}
+
+add_filter('wc_add_to_cart_message', 'intarget_add_filter', 10, 4);
+
+function intarget_add_filter($product_id) {
+    add_action('wp_enqueue_scripts', 'intarget_scripts_add');
+    return $product_id;
 }
 
 $options = get_option('intarget_option_name');
@@ -51,10 +56,7 @@ if (is_admin()) {
 
     if (($_SERVER['REQUEST_METHOD'] == 'POST') && (isset($_REQUEST['intarget_option_name']))) {
         $options = $_REQUEST['intarget_option_name'];
-        if (($options['intarget_email'] !== '') &&
-            ($options['intarget_api_key'] !== '') &&
-            ($options['intarget_project_id'] == '')
-        ) {
+        if (($options['intarget_email'] !== '') && ($options['intarget_api_key'] !== '') && ($options['intarget_project_id'] == '')) {
             $reg_ans = regbyApi($reg_domain, $options['intarget_email'], $options['intarget_api_key'], $url);
             if (is_object($reg_ans)) {
                 if (($reg_ans->status == 'OK') && (isset($reg_ans->payload))) {

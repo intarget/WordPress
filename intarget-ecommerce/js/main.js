@@ -72,6 +72,10 @@ jQuery(document).ready(
             var my_funct = "intarget_add();";
             jQuery(this).attr('onclick', my_funct);
         });
+
+        jQuery(document).on('click', '.add_to_cart_button', function () {
+            inTarget.event('add-to-cart');
+        });
     });
 
 jQuery(document).ready(function () {

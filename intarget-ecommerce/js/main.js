@@ -71,11 +71,12 @@ jQuery(document).ready(
             jQuery(this).attr('onclick', my_funct);
         });
 
-        jQuery("a.ajax_add_to_cart").each(function () {
-            var my_funct = "inTarget.event('add-to-cart');return true;";
-            jQuery(this).attr('onclick', my_funct);
-        });
-
+        jQuery(document).on('click', '.ajax_add_to_cart', (function (w, c) {
+            w[c] = w[c] || [];
+            w[c].push(function (inTarget) {
+                inTarget.event('add-to-cart');
+            });
+        })(window, 'inTargetCallbacks'));
     });
 
 jQuery(document).ready(function () {

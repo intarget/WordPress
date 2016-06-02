@@ -46,9 +46,7 @@ jQuery(document).ready(function () {
             });
         })(window, 'inTargetCallbacks');
     }
-});
 
-jQuery(document).ready(function () {
     if (jQuery('body.single-product').length) {
         (function (w, c) {
             w[c] = w[c] || [];
@@ -57,36 +55,27 @@ jQuery(document).ready(function () {
             });
         })(window, 'inTargetCallbacks');
     }
-});
 
-jQuery(document).ready(
-    function () {
-        jQuery("button.single_add_to_cart_button").each(function () {
-            var my_funct = "intarget_add();";
-            jQuery(this).attr('onclick', my_funct);
-        });
-
-        jQuery("a.add_to_cart_button").each(function () {
-            var my_funct = "intarget_add();";
-            jQuery(this).attr('onclick', my_funct);
-        });
-
-        jQuery(document).on('click', '.ajax_add_to_cart', (function (w, c) {
-            w[c] = w[c] || [];
-            w[c].push(function (inTarget) {
-                inTarget.event('add-to-cart');
-            });
-        })(window, 'inTargetCallbacks'));
+    jQuery("button.single_add_to_cart_button").each(function () {
+        var my_funct = "intarget_add();";
+        jQuery(this).attr('onclick', my_funct);
     });
 
-jQuery(document).ready(function () {
+    jQuery("a.add_to_cart_button").each(function () {
+        var my_funct = "intarget_add();";
+        jQuery(this).attr('onclick', my_funct);
+    });
+
+    jQuery('.ajax_add_to_cart').click(function () {
+            inTarget.event('add-to-cart');
+            console.log('add-ajax');
+    });
+
     jQuery("a.remove[data-product_id]").each(function () {
         var my_funct = "intarget_del();";
         jQuery(this).attr('onclick', my_funct);
     });
-});
 
-jQuery(document).ready(function () {
     if (jQuery('body.woocommerce-order-received').length) {
         (function (w, c) {
             w[c] = w[c] || [];

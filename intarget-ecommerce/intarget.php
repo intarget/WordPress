@@ -13,7 +13,14 @@ Author URI: https://intarget.ru/
 include 'intarget_options.php';
 
 add_action('wp_enqueue_scripts', 'intarget_scripts_method');
+
 add_filter('plugin_action_links', 'intarget_plugin_action_links', 10, 2);
+
+add_action( 'wc_ajax_add_to_cart', 'intarget_ajax_add_to_cart' );
+
+function intarget_ajax_add_to_cart() {
+    setcookie('intarget_add', true, time()+3600*24*100, COOKIEPATH, COOKIE_DOMAIN, false);
+}
 
 function intarget_plugin_action_links($actions, $plugin_file) {
     if (false === strpos($plugin_file, basename(__FILE__)))
@@ -30,6 +37,13 @@ function intarget_plugin_description_links($meta, $plugin_file) {
         return $meta;
     $meta[] = '<a href="options-general.php?page=intarget_settings">Настройки</a>';
     return $meta;
+}
+
+add_filter('wc_add_to_cart_message', 'intarget_add_filter', 10, 4);
+
+function intarget_add_filter($product_id) {
+    add_action('wp_enqueue_scripts', 'intarget_scripts_add');
+    return $product_id;
 }
 
 $options = get_option('intarget_option_name');
@@ -75,4 +89,11 @@ if (is_admin()) {
         $my_settings_page = new intargetSettingsPage();
     }
 }
+
+add_action('init', function() {
+    if (isset($_COOKIE['intarget_add'])) {
+        add_action('wp_enqueue_scripts', 'intarget_scripts_add');
+        setcookie('intarget_add', '', time()+3600*24*100, COOKIEPATH, COOKIE_DOMAIN, false);
+    }
+});
 

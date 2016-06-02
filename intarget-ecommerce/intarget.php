@@ -13,9 +13,6 @@ Author URI: https://intarget.ru/
 include 'intarget_options.php';
 
 add_action('wp_enqueue_scripts', 'intarget_scripts_method');
-//register_activation_hook(__FILE__, 'intarget_admin_actions');
-//add_action('widgets_init', 'intarget_register_widgets');
-//add_action('admin_menu', 'intarget_admin_actions');
 add_filter('plugin_action_links', 'intarget_plugin_action_links', 10, 2);
 
 function intarget_plugin_action_links($actions, $plugin_file) {
@@ -33,13 +30,6 @@ function intarget_plugin_description_links($meta, $plugin_file) {
         return $meta;
     $meta[] = '<a href="options-general.php?page=intarget_settings">Настройки</a>';
     return $meta;
-}
-
-add_filter('wc_add_to_cart_message', 'intarget_add_filter', 10, 4);
-
-function intarget_add_filter($product_id) {
-    add_action('wp_enqueue_scripts', 'intarget_scripts_add');
-    return $product_id;
 }
 
 $options = get_option('intarget_option_name');

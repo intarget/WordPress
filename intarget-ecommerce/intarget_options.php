@@ -154,14 +154,6 @@ function intarget_scripts_method() {
     }
 }
 
-function intarget_scripts_add() {
-    $options = get_option('intarget_option_name');
-    if ($options['intarget_project_id'] !== '') {
-        wp_register_script('intarget_add', '/wp-content/plugins/intarget-ecommerce/js/add.js', array('jquery'));
-        wp_enqueue_script('intarget_add');
-    }
-}
-
 function intarget_set_default_code() {
     $options = get_option('intarget_option_name');
     if (is_bool($options)) {

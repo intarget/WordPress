@@ -26,7 +26,7 @@ jQuery(document).ready(function () {
     var text_after = "<br><br>Введите email и Ключ API из личного кабинета inTarget. <br>" +
         "Если вы еще не регистрировались в сервисе inTarget это можно сделать по ссылке <a href='https://intarget.ru'>inTarget.ru</a>";
     var support_text = "<p>Служба поддержки: <a href='mailto:plugins@intarget.ru'>plugins@intarget.ru</a></p>" +
-        "<p>inTarget eCommerce v1.0.2</p>";
+        "<p>inTarget eCommerce v1.0.3</p>";
     var success_text = "<div class='updated'><p>Поздравляем! Ваш сайт успешно привязан к аккаунту <a href='https://intarget.ru'>inTarget.ru.</a></p></div>" +
         "Войдите в личный кабинет <a href='https://intarget.ru'>inTarget.ru</a> для просмотра статистики.";
     if ((!jQuery('#intarget_reg_error').val()) && (jQuery('#intarget_project_id').val())) {

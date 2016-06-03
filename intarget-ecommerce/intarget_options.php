@@ -61,17 +61,13 @@ class intargetSettingsPage {
     public function sanitize($input) {
         $new_input = array();
 
-        if (isset($input['intarget_email']))
-            $new_input['intarget_email'] = $input['intarget_email'];
+        if (isset($input['intarget_email'])) $new_input['intarget_email'] = $input['intarget_email'];
 
-        if (isset($input['intarget_project_id']))
-            $new_input['intarget_project_id'] = $input['intarget_project_id'];
+        if (isset($input['intarget_project_id'])) $new_input['intarget_project_id'] = $input['intarget_project_id'];
 
-        if (isset($input['intarget_api_key']))
-            $new_input['intarget_api_key'] = $input['intarget_api_key'];
+        if (isset($input['intarget_api_key'])) $new_input['intarget_api_key'] = $input['intarget_api_key'];
 
-        if (isset($input['intarget_reg_error']))
-            $new_input['intarget_reg_error'] = $input['intarget_reg_error'];
+        if (isset($input['intarget_reg_error'])) $new_input['intarget_reg_error'] = $input['intarget_reg_error'];
 
         return $new_input;
     }
@@ -158,6 +154,14 @@ function intarget_scripts_add() {
     $options = get_option('intarget_option_name');
     if ($options['intarget_project_id'] !== '') {
         wp_register_script('intarget_add', '/wp-content/plugins/intarget-ecommerce/js/add.js', array('jquery'));
+        wp_enqueue_script('intarget_add');
+    }
+}
+
+function intarget_scripts_del() {
+    $options = get_option('intarget_option_name');
+    if ($options['intarget_project_id'] !== '') {
+        wp_register_script('intarget_add', '/wp-content/plugins/intarget-ecommerce/js/del.js', array('jquery'));
         wp_enqueue_script('intarget_add');
     }
 }

@@ -41,7 +41,7 @@ jQuery(document).ready(function () {
             jQuery(email_selector).after('<img title="Введен правильный Email!" class="intrg_ok" src="' + images_path + 'ok.png">');
             jQuery(app_key_selector).attr('disabled', 'disabled');
             jQuery(email_selector).attr('disabled', 'disabled');
-            jQuery('[name=submit_btn]').after('<br>' + success_text + support_text);
+            jQuery('[name=submit_btn]').before('<br>' + success_text + support_text);
             jQuery('[name=submit_btn]').hide();
         } else if (window.intarget_succes_reg == false) {
             jQuery('input[name=submit_btn]').after(text_after + support_text);

@@ -19,15 +19,6 @@
 
 })(document, window, "inTargetInit");
 
-function intarget_del() {
-    (function (w, c) {
-        w[c] = w[c] || [];
-        w[c].push(function (inTarget) {
-            inTarget.event('del-from-cart');
-        });
-    })(window, 'inTargetCallbacks');
-}
-
 function intarget_add() {
     (function (w, c) {
         w[c] = w[c] || [];
@@ -71,13 +62,6 @@ jQuery(document).ready(
             jQuery(this).attr('onclick', my_funct);
         });
     });
-
-jQuery(document).ready(function () {
-    jQuery("a.remove[data-product_id]").each(function () {
-        var my_funct = "intarget_del();";
-        jQuery(this).attr('onclick', my_funct);
-    });
-});
 
 jQuery(document).ready(function () {
     if (jQuery('body.woocommerce-order-received').length) {

@@ -16,15 +16,21 @@ add_action('wp_enqueue_scripts', 'intarget_scripts_method');
 
 add_filter('plugin_action_links', 'intarget_plugin_action_links', 10, 2);
 
-add_action( 'wc_ajax_add_to_cart', 'intarget_ajax_add_to_cart' );
+add_action('wc_ajax_add_to_cart', 'intarget_ajax_add_to_cart');
+add_action('woocommerce_restore_cart_item', 'intarget_ajax_add_to_cart');
 
 function intarget_ajax_add_to_cart() {
-    setcookie('intarget_add', true, time()+3600*24*100, COOKIEPATH, COOKIE_DOMAIN, false);
+    setcookie('intarget_add', true, time() + 3600 * 24 * 100, COOKIEPATH, COOKIE_DOMAIN, false);
+}
+
+add_action('woocommerce_cart_item_removed', 'intarget_del_from_cart');
+
+function intarget_del_from_cart() {
+    setcookie('intarget_del', 'true', time() + 3600 * 24 * 100, COOKIEPATH, COOKIE_DOMAIN, false);
 }
 
 function intarget_plugin_action_links($actions, $plugin_file) {
-    if (false === strpos($plugin_file, basename(__FILE__)))
-        return $actions;
+    if (false === strpos($plugin_file, basename(__FILE__))) return $actions;
     $settings_link = '<a href="options-general.php?page=intarget_settings">Настройки</a>';
     array_unshift($actions, $settings_link);
     return $actions;
@@ -33,17 +39,9 @@ function intarget_plugin_action_links($actions, $plugin_file) {
 add_filter('plugin_row_meta', 'intarget_plugin_description_links', 10, 4);
 
 function intarget_plugin_description_links($meta, $plugin_file) {
-    if (false === strpos($plugin_file, basename(__FILE__)))
-        return $meta;
+    if (false === strpos($plugin_file, basename(__FILE__))) return $meta;
     $meta[] = '<a href="options-general.php?page=intarget_settings">Настройки</a>';
     return $meta;
-}
-
-add_filter('wc_add_to_cart_message', 'intarget_add_filter', 10, 4);
-
-function intarget_add_filter($product_id) {
-    add_action('wp_enqueue_scripts', 'intarget_scripts_add');
-    return $product_id;
 }
 
 $options = get_option('intarget_option_name');
@@ -90,10 +88,15 @@ if (is_admin()) {
     }
 }
 
-add_action('init', function() {
+add_action('init', function () {
     if (isset($_COOKIE['intarget_add'])) {
         add_action('wp_enqueue_scripts', 'intarget_scripts_add');
-        setcookie('intarget_add', '', time()+3600*24*100, COOKIEPATH, COOKIE_DOMAIN, false);
+        setcookie('intarget_add', '', time() + 3600 * 24 * 100, COOKIEPATH, COOKIE_DOMAIN, false);
+    }
+
+    if (isset($_COOKIE['intarget_del'])) {
+        add_action('wp_enqueue_scripts', 'intarget_scripts_del');
+        setcookie('intarget_del', '', time() + 3600 * 24 * 100, COOKIEPATH, COOKIE_DOMAIN, false);
     }
 });
 

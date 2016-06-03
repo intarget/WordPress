@@ -1,6 +1,6 @@
 (function (d, w, c) {
     w[c] = {
-        projectId: intarget_vars.project_id
+        projectId: parseInt(intarget_vars.project_id)
     };
 
     var n = d.getElementsByTagName("script")[0],

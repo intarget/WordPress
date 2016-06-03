@@ -44,6 +44,13 @@ function intarget_plugin_description_links($meta, $plugin_file) {
     return $meta;
 }
 
+add_filter('wc_add_to_cart_message', 'intarget_add_filter', 10, 4);
+
+function intarget_add_filter($product_id) {
+    add_action('wp_enqueue_scripts', 'intarget_scripts_add');
+    return $product_id;
+}
+
 $options = get_option('intarget_option_name');
 
 if (is_admin()) {

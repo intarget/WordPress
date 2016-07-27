@@ -93,18 +93,14 @@ class intargetSettingsPage {
 }
 
 function echo_before_text() {
-    echo '
-<div id="before_install" style="display:none;">
-Плагин inTarget успешно установлен!
-
+    echo '<div id="before_install" style="display:none;">
+Плагин inTarget успешно установлен!<br/>
 Для начала работы плагина необходимо ввести Ключ API, полученный в личном кабинете на сайте <a href="https://intarget.ru">inTarget.ru</a>
 </div>
 <div class="wrap" id="after_install" style="display:none;">
-
 <p><b>inTarget</b> — сервис повышения продаж и аналитика посетителей сайта.</p>
 <p>Оцените принципиально новый подход к просмотру статистики. Общайтесь со своей аудиторией, продавайте лучше, зарабатывайте больше. И все это бесплатно!</p>
-
-    </div>
+</div>
 </div>
 <script type="text/javascript">
     window.onload = function ()
@@ -113,8 +109,7 @@ function echo_before_text() {
             document.getElementById("before_install").style.display = "block"
         } else document.getElementById("after_install").style.display = "block"
     }
-</script>
-';
+</script>';
 }
 
 function regbyApi($regDomain, $email, $key, $url) {

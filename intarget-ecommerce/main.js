@@ -1,4 +1,4 @@
-/* 17/02/16 10:00*/
+/* 27/07/16 19:00*/
 jQuery(document).ready(function () {
     jQuery('.form-table th').css('width', '70px');
     jQuery('th').css('padding-bottom', '12px').css('padding-top', '12px');
@@ -7,6 +7,13 @@ jQuery(document).ready(function () {
     jQuery('#intarget_project_id').parent().parent().hide();
     jQuery('#intarget_reg_error').parent().parent().hide();
     jQuery('input[name=submit_btn]').attr('value', 'Авторизация');
+
+    jQuery('#intarget_api_key, #intarget_email').each(function () {
+        if (jQuery(this).val() == '') {
+            jQuery('input[name=submit_btn]').attr('disabled', 'disabled');
+        }
+    });
+
     jQuery('#intarget_api_key, #intarget_email').keyup(function () {
         var empty = false;
         jQuery('#intarget_api_key, #intarget_email').each(function () {
@@ -26,7 +33,7 @@ jQuery(document).ready(function () {
     var text_after = "<br><br>Введите email и Ключ API из личного кабинета inTarget. <br>" +
         "Если вы еще не регистрировались в сервисе inTarget это можно сделать по ссылке <a href='https://intarget.ru'>inTarget.ru</a>";
     var support_text = "<p>Служба поддержки: <a href='mailto:plugins@intarget.ru'>plugins@intarget.ru</a></p>" +
-        "<p>inTarget eCommerce v1.0.3</p>";
+        "<p>inTarget eCommerce v1.0.4</p>";
     var success_text = "<div class='updated'><p>Поздравляем! Ваш сайт успешно привязан к аккаунту <a href='https://intarget.ru'>inTarget.ru.</a></p></div>" +
         "Войдите в личный кабинет <a href='https://intarget.ru'>inTarget.ru</a> для просмотра статистики.";
     if ((!jQuery('#intarget_reg_error').val()) && (jQuery('#intarget_project_id').val())) {

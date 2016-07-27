@@ -95,7 +95,7 @@ if (is_admin()) {
     }
 }
 
-add_action('init', function () {
+function intarget_script_cookie() {
     if (isset($_COOKIE['intarget_add'])) {
         add_action('wp_enqueue_scripts', 'intarget_scripts_add');
         setcookie('intarget_add', '', time() + 3600 * 24 * 100, COOKIEPATH, COOKIE_DOMAIN, false);
@@ -105,5 +105,6 @@ add_action('init', function () {
         add_action('wp_enqueue_scripts', 'intarget_scripts_del');
         setcookie('intarget_del', '', time() + 3600 * 24 * 100, COOKIEPATH, COOKIE_DOMAIN, false);
     }
-});
+};
 
+add_action('init', 'intarget_script_cookie');

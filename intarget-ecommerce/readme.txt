@@ -4,7 +4,7 @@ Donate link: https://intarget.ru
 Tags: ecommerce, woocommerce, аналитика, интернет-магазин
 Requires at least: 3.0.1
 Tested up to: 4.5.2
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv3
 
 == Description ==

@@ -3,7 +3,7 @@
 Plugin Name: inTarget eCommerce
 Plugin URI: https://intarget.ru/
 Description: inTarget — система аналитики для интернет-магазина, с возможностью отслеживать продажи и анализировать конверсии в реальном времени.
-Version: 1.0.4
+Version: 1.0.4.
 Author: inTarget Team
 Author URI: https://intarget.ru/
 */

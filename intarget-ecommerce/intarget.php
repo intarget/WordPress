@@ -106,5 +106,4 @@ function intarget_script_cookie() {
         setcookie('intarget_del', '', time() + 3600 * 24 * 100, COOKIEPATH, COOKIE_DOMAIN, false);
     }
 };
-
 add_action('init', 'intarget_script_cookie');
